@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float bounceFactor = 8f;
     public TMP_Text faceText;
     private string[] faces = { "o0", "$$", "..", "00", "oo", "><", "ಠಠ", "--", "xx" };
+
+    public Timer timer;
     //Random.Range(0, 9)
 
     public int ammo;
@@ -25,6 +27,20 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Jump();
+
+        if(ammo == 2)
+        {
+            faceText.text = faces[3];
+        }
+
+        if(ammo == 1)
+        {
+            faceText.text = faces[4];
+        }
+        if(ammo == 0)
+        {
+            faceText.text = faces[5];
+        }
     }
 
     void Move()
@@ -64,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
             rb.angularVelocity = -jumpVelocity.x;
             ammo -= 1;
 
-            faceText.text = faces[Random.Range(0, 9)];
+            //faceText.text = faces[Random.Range(0, 9)];
 
         }
     }
@@ -78,18 +94,18 @@ public class PlayerMovement : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("Bounce"))
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0f);
+            //rb.velocity = new Vector2(rb.velocity.x, 0f);
             rb.AddForce(Vector2.up * bounceFactor, ForceMode2D.Impulse);
         }
     }
-/*
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name == "EndLevel")
         {
-            timerRunning = false;
+            timer.timerRunning = false;
         }
     }
-*/
+
 }
 

@@ -5,8 +5,8 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    private bool timerRunning = true;
-    private float timeRemaining = 0f;
+    public bool timerRunning = true;
+    public float timeRemaining = 0f;
     public TMP_Text timerText;
 
     void Start()

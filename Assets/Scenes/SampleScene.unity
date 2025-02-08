@@ -925,8 +925,9 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 5
   dashForce: 8
-  bounceFactor: 8
+  bounceFactor: 10
   faceText: {fileID: 962994313}
+  timer: {fileID: 627980652}
   ammo: 0
 --- !u!114 &627980652
 MonoBehaviour:
@@ -940,6 +941,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9cb2fbfaa6769449cf2aebb9c1c8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerRunning: 1
+  timeRemaining: 0
   timerText: {fileID: 1848314407}
 --- !u!1 &694597652
 GameObject:
