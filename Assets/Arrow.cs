@@ -5,7 +5,6 @@ public class CursorArrow : MonoBehaviour
     public Transform target;
     public PlayerMovement playerAmmo;
     private SpriteRenderer spriteRenderer;
-    private bool isScaling = false;
     private float startTime;
 
     void Start()

@@ -7,10 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5f;
     public float dashForce = 8f;
     public float bounceFactor = 8f;
-    public TMP_Text timerText;
     public TMP_Text faceText;
-    private bool timerRunning = true;
-    private float timeRemaining = 0f;
     private string[] faces = { "o0", "$$", "..", "00", "oo", "><", "ಠಠ", "--", "xx" };
     //Random.Range(0, 9)
 
@@ -28,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Jump();
-        Timer();
     }
 
     void Move()
@@ -38,24 +34,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
-    }
-
-    void Timer()
-    {
-        if (timerRunning)
-        {
-            timeRemaining += Time.deltaTime;
-            UpdateTimerDisplay();
-        }
-    }
-
-    void UpdateTimerDisplay()
-    {
-        int minutes = Mathf.FloorToInt(timeRemaining / 60);
-        int seconds = Mathf.FloorToInt(timeRemaining % 60);
-        int milliseconds = Mathf.FloorToInt((timeRemaining * 100) % 100); // Get two-digit milliseconds
-
-        timerText.text = string.Format("{0}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
     void Jump()
     {
@@ -104,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector2.up * bounceFactor, ForceMode2D.Impulse);
         }
     }
-
+/*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "EndLevel")
@@ -112,6 +90,6 @@ public class PlayerMovement : MonoBehaviour
             timerRunning = false;
         }
     }
-    
+*/
 }
 

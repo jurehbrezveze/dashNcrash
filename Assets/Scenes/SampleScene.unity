@@ -759,7 +759,8 @@ GameObject:
   m_Component:
   - component: {fileID: 627980647}
   - component: {fileID: 627980646}
-  - component: {fileID: 627980645}
+  - component: {fileID: 627980651}
+  - component: {fileID: 627980652}
   - component: {fileID: 627980649}
   - component: {fileID: 627980650}
   m_Layer: 0
@@ -769,25 +770,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &627980645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 627980643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 988e70f50b437674aa3e583b0c432e3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 4
-  jumpForce: 5
-  dashForce: 8
-  bounceFactor: 12
-  timerText: {fileID: 1848314407}
-  faceText: {fileID: 962994313}
-  ammo: 2
 --- !u!212 &627980646
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -928,6 +910,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &627980651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627980643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988e70f50b437674aa3e583b0c432e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  jumpForce: 5
+  dashForce: 8
+  bounceFactor: 8
+  faceText: {fileID: 962994313}
+  ammo: 0
+--- !u!114 &627980652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627980643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9cb2fbfaa6769449cf2aebb9c1c8be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 1848314407}
 --- !u!1 &694597652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,7 +2500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 627980647}
-  playerAmmo: {fileID: 627980645}
+  playerAmmo: {fileID: 627980651}
 --- !u!212 &1907119948
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2528,7 +2541,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: b48e9a94735714b4c9d434e2251bae48, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
