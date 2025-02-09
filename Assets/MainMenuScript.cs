@@ -4,27 +4,43 @@ using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour
 {
-    public Button playButton;
-    public Button quitButton;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button quitButton;
 
-    void Start()
+    void Awake()
     {
-        // Assign the methods to the buttons
+        Debug.Log("MainMenuScript is running!");
+
         if (playButton != null)
+        {
             playButton.onClick.AddListener(PlayGame);
+            Debug.Log("Play Button listener added.");
+        }
+        else
+        {
+            Debug.LogError("Play Button is not assigned in the Inspector.");
+        }
 
         if (quitButton != null)
+        {
             quitButton.onClick.AddListener(QuitGame);
+            Debug.Log("Quit Button listener added.");
+        }
+        else
+        {
+            Debug.LogError("Quit Button is not assigned in the Inspector.");
+        }
     }
 
-    public void PlayGame()
+    private void PlayGame()
     {
+        Debug.Log("Loading next scene...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void QuitGame()
+    private void QuitGame()
     {
+        Debug.Log("Quitting the game...");
         Application.Quit();
-        Debug.Log("Game Quit");
     }
 }
