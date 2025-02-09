@@ -1,34 +1,18 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour
 {
-    [SerializeField] private Button playButton;
-    [SerializeField] private Button quitButton;
-
-    void Awake()
+    void Update()
     {
-        Debug.Log("MainMenuScript is running!");
-
-        if (playButton != null)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            playButton.onClick.AddListener(PlayGame);
-            Debug.Log("Play Button listener added.");
-        }
-        else
-        {
-            Debug.LogError("Play Button is not assigned in the Inspector.");
+            PlayGame();
         }
 
-        if (quitButton != null)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            quitButton.onClick.AddListener(QuitGame);
-            Debug.Log("Quit Button listener added.");
-        }
-        else
-        {
-            Debug.LogError("Quit Button is not assigned in the Inspector.");
+            QuitGame();
         }
     }
 
@@ -40,7 +24,7 @@ public class MainMenuScript : MonoBehaviour
 
     private void QuitGame()
     {
-        Debug.Log("Quitting the game...");
+        Debug.Log("Quitting game...");
         Application.Quit();
     }
 }
