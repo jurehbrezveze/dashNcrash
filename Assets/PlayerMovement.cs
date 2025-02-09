@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Move();
         Jump();
 
         if(ammo == 2)
@@ -94,8 +93,27 @@ public class PlayerMovement : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("Bounce"))
         {
-            //rb.velocity = new Vector2(rb.velocity.x, 0f);
-            rb.AddForce(Vector2.up * bounceFactor, ForceMode2D.Impulse);
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                Vector2 normal = contact.normal;
+
+                if (normal.y > 0.5f) // Touching the bottom of the platform
+                {
+                    rb.AddForce(Vector2.up * bounceFactor, ForceMode2D.Impulse);
+                }
+                else if (normal.y < -0.5f) // Touching the top of the platform
+                {
+                    rb.AddForce(Vector2.down * bounceFactor, ForceMode2D.Impulse);
+                }
+                else if (normal.x > 0.5f) // Touching the left of the platform
+                {
+                    rb.AddForce(Vector2.right * bounceFactor, ForceMode2D.Impulse);
+                }
+                else if (normal.x < -0.5f) // Touching the right of the platform
+                {
+                    rb.AddForce(Vector2.left * bounceFactor, ForceMode2D.Impulse);
+                }
+            }
         }
     }
 
