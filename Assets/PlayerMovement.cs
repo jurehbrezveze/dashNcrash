@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using TMPro;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashForce = 8f;
     public float bounceFactor = 8f;
     public TMP_Text faceText;
+    public TrailRenderer trail;
     private string[] faces = { "o0", "$$", "..", "00", "oo", "><", "ಠಠ", "--", "xx" };
 
     public Timer timer;
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        trail = GetComponent<TrailRenderer>();
     }
 
     void Update()
@@ -66,11 +69,13 @@ public class PlayerMovement : MonoBehaviour
             if(ammo == 2)
             {
                 jumpVelocity *= -dashForce;
+                StartCoroutine(RenderTrail(0.3f));
             }
 
             if(ammo == 1)
             {
                 jumpVelocity *= -jumpForce;
+                StartCoroutine(RenderTrail(0.2f));
             }
             
             rb.velocity = Vector2.zero;
@@ -83,6 +88,13 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+    }
+
+    IEnumerator RenderTrail(float time)
+    {
+        trail.emitting = true;
+        yield return new WaitForSeconds(time);
+        trail.emitting = false;
     }
     
     void OnCollisionEnter2D(Collision2D collision)
