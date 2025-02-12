@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CursorArrow : MonoBehaviour
 {
@@ -43,12 +44,15 @@ public class CursorArrow : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            transform.localScale = new Vector3(0.2f, 0.2f, 1f);
-        }
-
-        if (!Input.GetMouseButtonDown(0))
-        {
-            transform.localScale = new Vector3(0.1f, 0.1f, 1f);
+            transform.localScale = new Vector3(0.15f, 0.15f, 1f);
+            StartCoroutine(ScaleBack(0.1f));
         }
     }
+
+    IEnumerator ScaleBack(float time)
+    {
+        yield return new WaitForSeconds(time);
+        transform.localScale = new Vector3(0.1f, 0.1f, 1f);
+    }
+
 }

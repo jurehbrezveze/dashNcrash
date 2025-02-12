@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = jumpVelocity;
             rb.angularVelocity = -jumpVelocity.x * 10;
             ammo -= 1;
-            isJumping = 10;
+            isJumping = 15;
 
         }
     }
