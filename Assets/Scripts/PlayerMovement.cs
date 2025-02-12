@@ -8,17 +8,17 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5f;
     public float dashForce = 8f;
     public float bounceFactor = 8f;
-    public TMP_Text faceText;
-    public TrailRenderer trail;
-    private string[] faces = { "o0", "$$", "..", "00", "oo", "><", "ಠಠ", "--", "xx" };
-
-    public Timer timer;
-    //Random.Range(0, 9)
-
     public int ammo;
     
+    private string[] faces = { "o0", "$$", "..", "00", "oo", "><", "ಠಠ", "--", "xx" };
+    private int isJumping = 0;
+
+    
+    
     private Rigidbody2D rb;
-    private bool isGrounded;
+    public Timer timer;
+    public TMP_Text faceText;
+    public TrailRenderer trail;
 
     void Start()
     {
@@ -29,7 +29,16 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Jump();
+        Face();
 
+        if(isJumping > 0)
+        {
+            isJumping -= 1;
+        }
+    }
+
+    void Face()
+    {
         if(ammo == 2)
         {
             faceText.text = faces[3];
@@ -81,10 +90,9 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector2.zero;
             rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
             rb.velocity = jumpVelocity;
-            rb.angularVelocity = -jumpVelocity.x;
+            rb.angularVelocity = -jumpVelocity.x * 10;
             ammo -= 1;
-
-            //faceText.text = faces[Random.Range(0, 9)];
+            isJumping = 10;
 
         }
     }
@@ -125,6 +133,16 @@ public class PlayerMovement : MonoBehaviour
                 {
                     rb.AddForce(Vector2.left * bounceFactor, ForceMode2D.Impulse);
                 }
+            }
+        }
+    }
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if(!collision.gameObject.CompareTag("Wall"))
+        {
+            if(isJumping == 0)
+            {
+                ammo = 2;
             }
         }
     }
