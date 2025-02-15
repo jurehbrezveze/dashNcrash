@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 5
   Color: {r: 1, g: 1, b: 1, a: 1}
-  Intensity: 1
+  Intensity: 0.5
   SortingLayer: Default
   SortingOrder: -1000
   filteringSettings:
@@ -124,7 +124,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1173254347
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: -1000
   m_AdditionalVertexStreams: {fileID: 0}
