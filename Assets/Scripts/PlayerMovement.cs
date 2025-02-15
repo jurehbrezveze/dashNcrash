@@ -111,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
         {
             ammo = 2;
         }
+        
         if(collision.gameObject.CompareTag("Bounce"))
         {
             foreach (ContactPoint2D contact in collision.contacts)
@@ -135,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        
     }
     void OnCollisionStay2D(Collision2D collision)
     {

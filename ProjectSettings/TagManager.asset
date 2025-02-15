@@ -43,6 +43,9 @@ TagManager:
   - name: Trails
     uniqueID: 2587539357
     locked: 0
+  - name: Pad
+    uniqueID: 2595928337
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
