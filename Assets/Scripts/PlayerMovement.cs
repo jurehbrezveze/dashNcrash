@@ -9,12 +9,10 @@ public class PlayerMovement : MonoBehaviour
     public float dashForce = 8f;
     public float bounceFactor = 8f;
     public int ammo;
-    
+
     private string[] faces = { "o0", "$$", "..", "00", "oo", "><", "ಠಠ", "--", "xx" };
     private int isJumping = 0;
 
-    
-    
     private Rigidbody2D rb;
     public Timer timer;
     public TMP_Text faceText;
@@ -31,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         Face();
 
-        if(isJumping > 0)
+        if (isJumping > 0)
         {
             isJumping -= 1;
         }
@@ -39,16 +37,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Face()
     {
-        if(ammo == 2)
+        if (ammo == 2)
         {
             faceText.text = faces[3];
         }
 
-        if(ammo == 1)
+        if (ammo == 1)
         {
             faceText.text = faces[4];
         }
-        if(ammo == 0)
+        if (ammo == 0)
         {
             faceText.text = faces[5];
         }
@@ -57,14 +55,14 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
-        if(moveInput != 0)
+        if (moveInput != 0)
         {
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
     }
+
     void Jump()
     {
-        {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         float distanceToMouse = Vector2.Distance(rb.position, mousePosition);
@@ -75,27 +73,25 @@ public class PlayerMovement : MonoBehaviour
 
             Vector2 jumpVelocity = new Vector2(direction.x, direction.y).normalized;
 
-            if(ammo == 2)
+            if (ammo == 2)
             {
                 jumpVelocity *= -dashForce;
                 StartCoroutine(RenderTrail(0.3f));
             }
 
-            if(ammo == 1)
+            if (ammo == 1)
             {
                 jumpVelocity *= -jumpForce;
                 StartCoroutine(RenderTrail(0.2f));
             }
-            
+
             rb.velocity = Vector2.zero;
             rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
             rb.velocity = jumpVelocity;
             rb.angularVelocity = -jumpVelocity.x * 10;
             ammo -= 1;
             isJumping = 15;
-
         }
-    }
     }
 
     IEnumerator RenderTrail(float time)
@@ -104,15 +100,19 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(time);
         trail.emitting = false;
     }
-    
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(!collision.gameObject.CompareTag("Wall"))
+        if (!collision.gameObject.CompareTag("Wall"))
         {
-            ammo = 2;
+            // Reset ammo for all instances of PlayerMovement
+            foreach (PlayerMovement player in FindObjectsOfType<PlayerMovement>())
+            {
+                player.ammo = 2;
+            }
         }
-        
-        if(collision.gameObject.CompareTag("Bounce"))
+
+        if (collision.gameObject.CompareTag("Bounce"))
         {
             foreach (ContactPoint2D contact in collision.contacts)
             {
@@ -136,15 +136,16 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        
     }
+
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(!collision.gameObject.CompareTag("Wall"))
+        if (!collision.gameObject.CompareTag("Wall") && isJumping == 0)
         {
-            if(isJumping == 0)
+            // Reset ammo for all instances of PlayerMovement
+            foreach (PlayerMovement player in FindObjectsOfType<PlayerMovement>())
             {
-                ammo = 2;
+                player.ammo = 2;
             }
         }
     }
@@ -156,6 +157,6 @@ public class PlayerMovement : MonoBehaviour
             timer.timerRunning = false;
         }
     }
-
 }
+
 
