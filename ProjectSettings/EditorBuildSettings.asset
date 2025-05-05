@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level9.unity
     guid: a3b4fd35d4499924d9de6658587546b0
   - enabled: 1
+    path: Assets/Scenes/Level10.unity
+    guid: ba38cd22f0f1e11439882ee095b4c57e
+  - enabled: 1
     path: Assets/Scenes/THXFORPLAYING.unity
     guid: 3536e46c598b8fb4f856e4f38e2a97ae
   m_configObjects: {}
