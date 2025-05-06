@@ -111,6 +111,18 @@ public class PlayerMovement : MonoBehaviour
                 player.ammo = 2;
             }
         }
+    }
+
+    void OnTriggerCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Wall"))
+        {
+            // Reset ammo for all instances of PlayerMovement
+            foreach (PlayerMovement player in FindObjectsOfType<PlayerMovement>())
+            {
+                player.ammo = 2;
+            }
+        }
 
         if (collision.gameObject.CompareTag("Bounce"))
         {
@@ -158,5 +170,3 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
-
-
