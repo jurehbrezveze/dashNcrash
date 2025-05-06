@@ -5,7 +5,7 @@ public class OnCollisionDetect : MonoBehaviour
     public GameObject childPrefab; // Assign this in the inspector
     private bool hasCollided = false;
 
-    private void HandleCollisionOrTrigger()
+    private void HandleCollision()
     {
         if (hasCollided) return;
 
@@ -28,11 +28,7 @@ public class OnCollisionDetect : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        HandleCollisionOrTrigger();
+        HandleCollision();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        HandleCollisionOrTrigger();
-    }
 }

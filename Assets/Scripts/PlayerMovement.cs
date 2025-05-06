@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         {
             faceText.text = faces[4];
         }
+
         if (ammo == 0)
         {
             faceText.text = faces[5];
@@ -64,13 +65,11 @@ public class PlayerMovement : MonoBehaviour
     void Jump()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         float distanceToMouse = Vector2.Distance(rb.position, mousePosition);
 
-        if (Input.GetMouseButtonDown(0) && ammo > 0) // Left mouse button
+        if (Input.GetMouseButtonDown(0) && ammo > 0)
         {
             Vector2 direction = (mousePosition - rb.position);
-
             Vector2 jumpVelocity = new Vector2(direction.x, direction.y).normalized;
 
             if (ammo == 2)
@@ -105,19 +104,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Wall"))
         {
-            // Reset ammo for all instances of PlayerMovement
-            foreach (PlayerMovement player in FindObjectsOfType<PlayerMovement>())
-            {
-                player.ammo = 2;
-            }
-        }
-    }
-
-    void OnTriggerCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Wall"))
-        {
-            // Reset ammo for all instances of PlayerMovement
             foreach (PlayerMovement player in FindObjectsOfType<PlayerMovement>())
             {
                 player.ammo = 2;
@@ -130,19 +116,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector2 normal = contact.normal;
 
-                if (normal.y > 0.5f) // Touching the bottom of the platform
+                if (normal.y > 0.5f)
                 {
                     rb.AddForce(Vector2.up * bounceFactor, ForceMode2D.Impulse);
                 }
-                else if (normal.y < -0.5f) // Touching the top of the platform
+                else if (normal.y < -0.5f)
                 {
                     rb.AddForce(Vector2.down * bounceFactor, ForceMode2D.Impulse);
                 }
-                else if (normal.x > 0.5f) // Touching the left of the platform
+                else if (normal.x > 0.5f)
                 {
                     rb.AddForce(Vector2.right * bounceFactor, ForceMode2D.Impulse);
                 }
-                else if (normal.x < -0.5f) // Touching the right of the platform
+                else if (normal.x < -0.5f)
                 {
                     rb.AddForce(Vector2.left * bounceFactor, ForceMode2D.Impulse);
                 }
@@ -154,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Wall") && isJumping == 0)
         {
-            // Reset ammo for all instances of PlayerMovement
             foreach (PlayerMovement player in FindObjectsOfType<PlayerMovement>())
             {
                 player.ammo = 2;
