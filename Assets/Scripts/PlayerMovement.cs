@@ -153,5 +153,14 @@ public class PlayerMovement : MonoBehaviour
         {
             timer.timerRunning = false;
         }
+
+        if (other.gameObject.CompareTag("DashExtend"))
+        {   
+            foreach (PlayerMovement player in FindObjectsOfType<PlayerMovement>())
+            {
+                player.ammo = 2;
+            }
+        }
+
     }
 }

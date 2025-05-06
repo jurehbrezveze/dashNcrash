@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bounce
   - Wall
+  - DashExtend
   layers:
   - Default
   - TransparentFX
