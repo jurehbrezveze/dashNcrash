@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
                 player.ammo = 2;
             }
         }
-
+/*
         if (collision.gameObject.CompareTag("Bounce"))
         {
             foreach (ContactPoint2D contact in collision.contacts)
@@ -135,7 +135,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
+*/
+    }
     void OnCollisionStay2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Wall") && isJumping == 0)
@@ -147,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name == "EndLevel")
         {
