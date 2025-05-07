@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4440614263621785597}
   - component: {fileID: 8958667728792028346}
   m_Layer: 0
-  m_Name: DashExtend (1)
+  m_Name: DashExtend
   m_TagString: DashExtend
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
