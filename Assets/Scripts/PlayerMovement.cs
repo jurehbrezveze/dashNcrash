@@ -109,34 +109,21 @@ public class PlayerMovement : MonoBehaviour
                 player.ammo = 2;
             }
         }
-/*
-        if (collision.gameObject.CompareTag("Bounce"))
+        if (collision.gameObject.CompareTag("Sticky"))
         {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                Vector2 normal = contact.normal;
+            transform.parent = collision.transform;
+        }
 
-                if (normal.y > 0.5f)
-                {
-                    rb.AddForce(Vector2.up * bounceFactor, ForceMode2D.Impulse);
-                }
-                else if (normal.y < -0.5f)
-                {
-                    rb.AddForce(Vector2.down * bounceFactor, ForceMode2D.Impulse);
-                }
-                else if (normal.x > 0.5f)
-                {
-                    rb.AddForce(Vector2.right * bounceFactor, ForceMode2D.Impulse);
-                }
-                else if (normal.x < -0.5f)
-                {
-                    rb.AddForce(Vector2.left * bounceFactor, ForceMode2D.Impulse);
-                }
-            }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Sticky"))
+        {
+            transform.parent = null;
         }
     }
-*/
-    }
+
     void OnCollisionStay2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Wall") && isJumping == 0)

@@ -9,6 +9,7 @@ public class NextLevelLoader : MonoBehaviour
 
     private bool playerTouched = false;
 
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject == player && !playerTouched)
