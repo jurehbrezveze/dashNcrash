@@ -16,13 +16,13 @@ public class MainMenuScript : MonoBehaviour
         }
     }
 
-    private void PlayGame()
+    public void PlayGame()
     {
         Debug.Log("Loading next scene...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    private void QuitGame()
+    public void QuitGame()
     {
         Debug.Log("Quitting game...");
         Application.Quit();
