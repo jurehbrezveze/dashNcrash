@@ -39,6 +39,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Level10.unity
     guid: ba38cd22f0f1e11439882ee095b4c57e
   - enabled: 1
+    path: Assets/Scenes/Level11.unity
+    guid: 68c049b8231e1f94c9c37779cb1cebb2
+  - enabled: 1
+    path: Assets/Scenes/Level12.unity
+    guid: b9083e6016f6d7a458ca15d7bbd4c136
+  - enabled: 1
+    path: Assets/Scenes/Level13.unity
+    guid: 7ea0daee8bee81843855a4b17395a02e
+  - enabled: 1
     path: Assets/Scenes/THXFORPLAYING.unity
     guid: 3536e46c598b8fb4f856e4f38e2a97ae
   m_configObjects: {}
