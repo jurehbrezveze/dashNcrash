@@ -5,14 +5,9 @@ public class MainMenuScript : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlayGame();
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            QuitGame();
+            LoadScene("MainMenu");
         }
     }
 
