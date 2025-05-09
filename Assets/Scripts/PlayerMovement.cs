@@ -109,19 +109,6 @@ public class PlayerMovement : MonoBehaviour
                 player.ammo = 2;
             }
         }
-        if (collision.gameObject.CompareTag("Sticky"))
-        {
-            transform.parent = collision.transform;
-        }
-
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Sticky"))
-        {
-            transform.parent = null;
-        }
     }
 
     void OnCollisionStay2D(Collision2D collision)

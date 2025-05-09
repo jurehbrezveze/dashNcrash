@@ -27,4 +27,9 @@ public class MainMenuScript : MonoBehaviour
         Debug.Log("Quitting game...");
         Application.Quit();
     }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 }
