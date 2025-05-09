@@ -3,11 +3,19 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
+    public int maxLevel;
+
+    void Start()
+    {
+        maxLevel = PlayerPrefs.GetInt("LastLevel", 1);
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            LoadScene("MainMenu");
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
         }
     }
 
