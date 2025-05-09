@@ -33,6 +33,16 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        int levelNumber = 0;
+
+        if (sceneName.StartsWith("Level"))
+        {
+            string numberPart = sceneName.Substring("Level".Length);
+            int.TryParse(numberPart, out levelNumber);
+        }
+        if(levelNumber <= maxLevel)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }

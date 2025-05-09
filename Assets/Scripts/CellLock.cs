@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class CellLock : MonoBehaviour
@@ -15,7 +16,6 @@ public class CellLock : MonoBehaviour
         if (child != null && levelNum > maxLevel)
         {
             child.gameObject.SetActive(true);
-            Debug.Log(gameObject.name);
         }
     }
 }
