@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class MovingPlatform2D : MonoBehaviour
 {
-    [Header("Waypoints (set 2 empty GameObjects)")]
+    [Header("Waypoints (Set 2 empty GameObjects)")]
     public Transform pointA;
     public Transform pointB;
 
-    [Header("Movement")]
+    [Header("Movement Settings")]
     public float speed = 2f;
     public float waitTime = 1f;
 
+    [Header("Collision Settings")]
+    public string playerTag = "Player"; // Ensure your player GameObject is tagged with this
+
     private Transform target;
     private bool waiting = false;
+    private bool activated = false;
 
     void Start()
     {
@@ -20,14 +24,13 @@ public class MovingPlatform2D : MonoBehaviour
 
     void Update()
     {
-        if (!waiting && target != null)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        if (!activated || waiting || target == null) return;
 
-            if (Vector2.Distance(transform.position, target.position) < 0.05f)
-            {
-                StartCoroutine(SwitchTargetAfterDelay());
-            }
+        transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+
+        if (Vector2.Distance(transform.position, target.position) < 0.05f)
+        {
+            StartCoroutine(SwitchTargetAfterDelay());
         }
     }
 
@@ -37,5 +40,13 @@ public class MovingPlatform2D : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         target = (target == pointA) ? pointB : pointA;
         waiting = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag(playerTag))
+        {
+            activated = true;
+        }
     }
 }
