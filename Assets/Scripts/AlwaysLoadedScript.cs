@@ -5,6 +5,8 @@ public class AlwaysLoadedScript : MonoBehaviour
 {
     public static AlwaysLoadedScript instance;
     private string currentScene;
+    public float time = 0f;
+    public bool sMode = false;
     string lastSavedScene;
     int maxLevel = 1;
 
@@ -29,6 +31,7 @@ public class AlwaysLoadedScript : MonoBehaviour
 
     void Update()
     {
+
         string currentScene = SceneManager.GetActiveScene().name;
 
         if (currentScene != "MainMenu" && currentScene != lastSavedScene)

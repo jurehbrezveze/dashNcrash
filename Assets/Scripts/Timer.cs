@@ -6,12 +6,20 @@ using TMPro;
 public class Timer : MonoBehaviour
 {
     public bool timerRunning = true;
-    public float timeRemaining = 0f;
+    public float time = 0f;
     public TMP_Text timerText;
+    private AlwaysLoadedScript alwaysLoadedScript;
 
     void Start()
     {
-        
+        GameObject obj = GameObject.Find("AlwaysLoaded");
+
+        if (obj != null)
+        {
+            alwaysLoadedScript = obj.GetComponent<AlwaysLoadedScript>();
+        }
+
+        time = alwaysLoadedScript.time;
     }
 
     void Update()
@@ -23,16 +31,21 @@ public class Timer : MonoBehaviour
         {
             if (timerRunning)
             {
-                timeRemaining += Time.deltaTime;
+                time += Time.deltaTime;
+                UpdateTimerDisplay();
+            }
+            else
+            {
+                alwaysLoadedScript.time = time;
                 UpdateTimerDisplay();
             }
         }
 
         void UpdateTimerDisplay()
         {
-            int minutes = Mathf.FloorToInt(timeRemaining / 60);
-            int seconds = Mathf.FloorToInt(timeRemaining % 60);
-            int milliseconds = Mathf.FloorToInt((timeRemaining * 100) % 100);
+            int minutes = Mathf.FloorToInt(time / 60);
+            int seconds = Mathf.FloorToInt(time % 60);
+            int milliseconds = Mathf.FloorToInt((time * 100) % 100);
 
             timerText.text = string.Format("{0}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         }
