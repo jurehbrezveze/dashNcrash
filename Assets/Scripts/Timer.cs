@@ -18,8 +18,10 @@ public class Timer : MonoBehaviour
         {
             alwaysLoadedScript = obj.GetComponent<AlwaysLoadedScript>();
         }
-
-        time = alwaysLoadedScript.time;
+        if(alwaysLoadedScript.sMode = true)
+        {
+            time = alwaysLoadedScript.time;
+        }
     }
 
     void Update()
@@ -34,7 +36,7 @@ public class Timer : MonoBehaviour
                 time += Time.deltaTime;
                 UpdateTimerDisplay();
             }
-            else
+            else if(alwaysLoadedScript.sMode = true)
             {
                 alwaysLoadedScript.time = time;
                 UpdateTimerDisplay();
