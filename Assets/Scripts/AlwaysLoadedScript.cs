@@ -8,7 +8,7 @@ public class AlwaysLoadedScript : MonoBehaviour
     public float time = 0f;
     public bool sMode = false;
     string lastSavedScene;
-    int maxLevel = 1;
+    public int maxLevel = 1;
 
     void Awake()
     {
