@@ -43,6 +43,7 @@ public class AlwaysLoadedScript : MonoBehaviour
 
             if(levelNumber > maxLevel)
             {
+                Debug.Log("Saving Level" + levelNumber);
                 PlayerPrefs.SetInt("LastLevel", levelNumber);
                 PlayerPrefs.Save();
                 lastSavedScene = currentScene;
