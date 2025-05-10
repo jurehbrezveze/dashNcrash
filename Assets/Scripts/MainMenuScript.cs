@@ -4,9 +4,19 @@ using UnityEngine.SceneManagement;
 public class MainMenuScript : MonoBehaviour
 {
     public int maxLevel;
+    private AlwaysLoadedScript alwaysLoadedScript;
 
     void Start()
     {
+        GameObject obj = GameObject.Find("AlwaysLoaded");
+
+        if (obj != null)
+        {
+            alwaysLoadedScript = obj.GetComponent<AlwaysLoadedScript>();
+        }
+        alwaysLoadedScript.time = 0f;
+        alwaysLoadedScript.sMode = false;
+
         maxLevel = PlayerPrefs.GetInt("LastLevel", 1);
     }
 
@@ -17,10 +27,17 @@ public class MainMenuScript : MonoBehaviour
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("2");
+            alwaysLoadedScript.sMode = true;
+            SceneManager.LoadScene("Level20");
+        }
     }
 
     public void PlayGame()
     {
+        alwaysLoadedScript.sMode = true;
         Debug.Log("Loading next scene...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
