@@ -17,6 +17,7 @@ public class MainMenuScript : MonoBehaviour
         alwaysLoadedScript.time = 0f;
         alwaysLoadedScript.sMode = false;
 
+        Cursor.visible = true;
         maxLevel = PlayerPrefs.GetInt("LastLevel", 1);
     }
 
