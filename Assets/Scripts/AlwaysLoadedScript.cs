@@ -9,7 +9,8 @@ public class AlwaysLoadedScript : MonoBehaviour
     public bool sMode = false;
     string lastSavedScene;
     public int maxLevel = 1;
-
+    Transform child = transform.Find("Canvas");
+    
     void Awake()
     {
         if (instance == null)
@@ -53,9 +54,23 @@ public class AlwaysLoadedScript : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            Screen.fullScreen = !Screen.fullScreen;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            LoadScene("MainMenu");
+            if (child.gameObject.activeSelf)
+            {
+                transform.Find("Canvas").gameObject.SetActive(false);
+            }
+            else if (!child.gameObject.activeSelf)
+            {
+                transform.Find("Canvas").gameObject.SetActive(true);
+            }
+            //LoadScene("MainMenu");
+            //Cursor.lockState = CursorLockMode.None;     
         }
     }
 

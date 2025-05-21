@@ -18,6 +18,7 @@ public class MainMenuScript : MonoBehaviour
         alwaysLoadedScript.sMode = false;
 
         Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.Locked;
         maxLevel = PlayerPrefs.GetInt("LastLevel", 1);
     }
 
