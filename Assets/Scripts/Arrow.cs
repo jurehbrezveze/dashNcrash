@@ -6,7 +6,9 @@ public class CursorArrow : MonoBehaviour
     public Transform target;
     public PlayerMovement playerAmmo;
     private SpriteRenderer spriteRenderer;
+    private PauseMenu pauseMenu;
     private float startTime;
+
 
     void Start()
     {
@@ -16,36 +18,39 @@ public class CursorArrow : MonoBehaviour
 
     void Update()
     {
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.z = 0f;
-        transform.position = mouseWorldPos;
-
-        if (target != null)
+        if(PauseMenu.isPaused == false)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorldPos.z = 0f;
+            transform.position = mouseWorldPos;
 
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            if (target != null)
+            {
+                Vector3 direction = (target.position - transform.position).normalized;
 
-            transform.rotation = Quaternion.Euler(0, 0, angle);
-        }
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        if(playerAmmo.ammo == 2)
-        {
-            spriteRenderer.color = new Color(0f, 1f, 0.498f);
-        }
-        if(playerAmmo.ammo == 1)
-        {
-            spriteRenderer.color = new Color(0.345f, 0.886f, 1f);
-        }
-        if(playerAmmo.ammo < 1)
-        {
-            spriteRenderer.color = new Color(0.753f, 1f, 0.965f);
-        }
+                transform.rotation = Quaternion.Euler(0, 0, angle);
+            }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            transform.localScale = new Vector3(0.15f, 0.15f, 1f);
-            StartCoroutine(ScaleBack(0.1f));
+            if(playerAmmo.ammo == 2)
+            {
+                spriteRenderer.color = new Color(0f, 1f, 0.498f);
+            }
+            if(playerAmmo.ammo == 1)
+            {
+                spriteRenderer.color = new Color(0.345f, 0.886f, 1f);
+            }
+            if(playerAmmo.ammo < 1)
+            {
+                spriteRenderer.color = new Color(0.753f, 1f, 0.965f);
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                transform.localScale = new Vector3(0.15f, 0.15f, 1f);
+                StartCoroutine(ScaleBack(0.1f));
+            }
         }
     }
 

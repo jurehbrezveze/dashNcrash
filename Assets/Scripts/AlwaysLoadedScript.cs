@@ -9,7 +9,6 @@ public class AlwaysLoadedScript : MonoBehaviour
     public bool sMode = false;
     string lastSavedScene;
     public int maxLevel = 1;
-    Transform child = transform.Find("Canvas");
     
     void Awake()
     {
@@ -61,16 +60,7 @@ public class AlwaysLoadedScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (child.gameObject.activeSelf)
-            {
-                transform.Find("Canvas").gameObject.SetActive(false);
-            }
-            else if (!child.gameObject.activeSelf)
-            {
-                transform.Find("Canvas").gameObject.SetActive(true);
-            }
-            //LoadScene("MainMenu");
-            //Cursor.lockState = CursorLockMode.None;     
+
         }
     }
 

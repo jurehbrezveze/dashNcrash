@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public Timer timer;
     public TMP_Text faceText;
     public TrailRenderer trail;
+    private PauseMenu pauseMenu;
 
     void Start()
     {
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float distanceToMouse = Vector2.Distance(rb.position, mousePosition);
 
-        if (Input.GetMouseButtonDown(0) && ammo > 0)
+        if (Input.GetMouseButtonDown(0) && ammo > 0 && PauseMenu.isPaused == false)
         {
             Vector2 direction = (mousePosition - rb.position);
             Vector2 jumpVelocity = new Vector2(direction.x, direction.y).normalized;
