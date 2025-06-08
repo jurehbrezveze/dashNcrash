@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - DashExtend
   - Sticky
+  - ColorObj
   layers:
   - Default
   - TransparentFX
