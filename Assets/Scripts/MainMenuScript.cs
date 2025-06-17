@@ -5,6 +5,12 @@ public class MainMenuScript : MonoBehaviour
 {
     public int maxLevel;
     private AlwaysLoadedScript alwaysLoadedScript;
+    public GameObject pivot;
+    public float rotationSpeed = 180f;
+    public float turnAngle = 70f;
+
+    private bool isRotating = false;
+    private float rotatedAmount = 0f;
 
     void Start()
     {
@@ -35,6 +41,21 @@ public class MainMenuScript : MonoBehaviour
             alwaysLoadedScript.sMode = true;
             SceneManager.LoadScene("Level20");
         }
+        if (isRotating)
+        {
+            float delta = rotationSpeed * Time.deltaTime;
+            float step = Mathf.Sign(turnAngle) * delta;
+
+            rotatedAmount += Mathf.Abs(step);
+
+            if (rotatedAmount >= Mathf.Abs(turnAngle))
+            {
+                step -= Mathf.Sign(step) * (rotatedAmount - Mathf.Abs(turnAngle));
+                isRotating = false;
+            }
+
+            pivot.transform.Rotate(0, 0, step);
+        }
     }
 
     public void PlayGame()
@@ -48,6 +69,21 @@ public class MainMenuScript : MonoBehaviour
     {
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void LvlShow()    
+    {
+        if (isRotating) return;
+        turnAngle = 70f;
+        rotatedAmount = 0f;
+        isRotating = true;
+    }
+    public void LvlHide()    
+    {
+        if (isRotating) return;
+        turnAngle = -70f;
+        isRotating = true;
+        rotatedAmount = 0f;
     }
 
     public void LoadScene(string sceneName)
