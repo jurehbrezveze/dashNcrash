@@ -24,12 +24,14 @@ public class CursorArrow : MonoBehaviour
             mouseWorldPos.z = 0f;
             transform.position = mouseWorldPos;
 
-            if (target != null)
+            if (Input.GetMouseButton(1))
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -90);
+            }
+            else
             {
                 Vector3 direction = (target.position - transform.position).normalized;
-
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
                 transform.rotation = Quaternion.Euler(0, 0, angle);
             }
 
@@ -47,6 +49,12 @@ public class CursorArrow : MonoBehaviour
             }
 
             if (Input.GetMouseButtonDown(0))
+            {
+                transform.localScale = new Vector3(0.15f, 0.15f, 1f);
+                StartCoroutine(ScaleBack(0.1f));
+            }
+
+            if (Input.GetMouseButtonDown(1))
             {
                 transform.localScale = new Vector3(0.15f, 0.15f, 1f);
                 StartCoroutine(ScaleBack(0.1f));
