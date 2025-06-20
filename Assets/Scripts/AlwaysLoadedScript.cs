@@ -57,11 +57,6 @@ public class AlwaysLoadedScript : MonoBehaviour
         {
             Screen.fullScreen = !Screen.fullScreen;
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-
-        }
     }
 
 
