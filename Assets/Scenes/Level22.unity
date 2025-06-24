@@ -265,6 +265,10 @@ PrefabInstance:
       value: FadePlatform (7)
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.09
       objectReference: {fileID: 0}
@@ -320,6 +324,10 @@ PrefabInstance:
     - target: {fileID: 1670966660876556432, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_Name
       value: FadePlatform (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.80568
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -507,6 +515,10 @@ PrefabInstance:
     - target: {fileID: 1670966660876556432, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_Name
       value: FadePlatform (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1011,6 +1023,10 @@ PrefabInstance:
       value: FadePlatform (11)
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.36
       objectReference: {fileID: 0}
@@ -1196,6 +1212,10 @@ PrefabInstance:
     - target: {fileID: 1670966660876556432, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_Name
       value: FadePlatform (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1622,6 +1642,10 @@ PrefabInstance:
       value: FadePlatform (6)
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.08
       objectReference: {fileID: 0}
@@ -2000,6 +2024,10 @@ PrefabInstance:
       value: FadePlatform (4)
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.84
       objectReference: {fileID: 0}
@@ -2198,6 +2226,10 @@ PrefabInstance:
       value: FadePlatform (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.95
       objectReference: {fileID: 0}
@@ -2383,6 +2415,10 @@ PrefabInstance:
     - target: {fileID: 1670966660876556432, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_Name
       value: FadePlatform (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3153,6 +3189,10 @@ PrefabInstance:
       value: FadePlatform (10)
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.88
       objectReference: {fileID: 0}
@@ -3483,6 +3523,10 @@ PrefabInstance:
       value: FadePlatform (3)
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.86
       objectReference: {fileID: 0}
@@ -3538,6 +3582,10 @@ PrefabInstance:
     - target: {fileID: 1670966660876556432, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_Name
       value: FadePlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3241054832759922783, guid: 63e0248fadd72ed41beb6755b5c454af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4789,7 +4837,7 @@ Mesh:
     firstVertex: 0
     vertexCount: 26
     localAABB:
-      m_Center: {x: -0.0036387444, y: 3.2392426, z: 0}
+      m_Center: {x: -0.0036382675, y: 3.2392426, z: 0}
       m_Extent: {x: 8.919071, y: 6.7607574, z: 0}
   m_Shapes:
     vertices: []
@@ -4869,7 +4917,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 832
-    _typelessdata: 0000000000000000000000000000000000000000000080bf0000003f0000003fd0992b40cb5b09bf000000000000000000000000000080bff651223f9f43f23e9ca50e41fba8e4bf000000000000000000000000000080bf161e723f9a44d23e9ca50e41f5ee48c0000000000000000000000000000080bf161e723f6ba0af3e99a50e41806061c0000000000000000000000000000080bf141e723f66d9a53e80606140806061c0000000000000000000000000000080bf4d132d3f66d9a53ef2ee4840806061c0000000000000000000000000000080bfca2f283f66d9a53ef71849c0806061c0000000000000000000000000000080bf9d8faf3e66d9a53e7f6061c0806061c0000000000000000000000000000080bf67d9a53e66d9a53e5dc30ec1806061c0000000000000000000000000000080bfc0a15c3d66d9a53e6ac30ec183644fc0000000000000000000000000000080bf18a15c3dff0aad3e6ac30ec1185d4fc0000000000000000000000000ffff7fbf18a15c3df60dad3e6bc30ec168c30e41000000000000000000000000000080bf10a15c3ded35723f6bc30ec100002041000000000000000000000000000080bf10a15c3d0000803ff4ef2cbf00002041000000000000000000000000000080bfceb4ee3e0000803f878327bf021d1b41000000000000000000000000000080bfa63fef3e35177c3fcf8e514071200741000000000000000000000000000080bf5ce9293ff4196c3f802e784000002041000000000000000000000000000080bfe6a2313f0000803f5475e94000002041000000000000000000000000000080bf22625d3f0000803f8afccc40a3790c41000000000000000000000000000080bf9efe513f4f61703f3727d840cf72f240000000000000000000000000000080bf1676563fb9fa603fa510de40a510de40000000000000000000000000000080bf75d3583f75d3583fabbbf14052409a40000000000000000000000000000080bf78b1603f54b33d3f9ba50e410f05b640000000000000000000000000000080bf161e723fd3ce483f9ba50e415ce29240000000000000000000000000000080bf161e723ff2c03a3fe0a0a740278d2c40000000000000000000000000000080bf260d433fa282223f
+    _typelessdata: 0000000000000000000000000000000000000000ffff7fbf0000003f0000003fd0992b40cb5b09bf000000000000000000000000000080bff651223f9f43f23e9ca50e41fba8e4bf000000000000000000000000000080bf161e723f9a44d23e9ca50e41f5ee48c0000000000000000000000000ffff7fbf161e723f6ba0af3e9da50e41806061c0000000000000000000000000000080bf171e723f66d9a53e80606140806061c0000000000000000000000000ffff7fbf4d132d3f66d9a53ef2ee4840806061c0000000000000000000000000000080bfca2f283f66d9a53ef71849c0806061c0000000000000000000000000000080bf9d8faf3e66d9a53e7f6061c0806061c0000000000000000000000000000080bf67d9a53e66d9a53e6ac30ec1806061c0000000000000000000000000000080bf18a15c3d66d9a53e6ac30ec183644fc0000000000000000000000000000080bf18a15c3dff0aad3e6ac30ec1185d4fc0000000000000000000000000ffff7fbf18a15c3df60dad3e6bc30ec168c30e41000000000000000000000000000080bf10a15c3ded35723f6bc30ec100002041000000000000000000000000000080bf10a15c3d0000803f941d1ebf00002041000000000000000000000000000080bf3e30f03e0000803f33741abfa46f1c41000000000000000000000000000080bffb8df03e1d267d3ff24a4e40d1cd0541000000000000000000000000000080bf3042293f0e0b6b3f40bb764000002041000000000000000000000000000080bfa658313f0000803ff6ffec4000002041000000000000000000000000000080bfc9cc5e3f0000803f132fd040e2880c41000000000000000000000000ffff7fbf0846533f826d703fa226d9404d91f340000000000000000000000000ffff7fbf41dc563f526d613f9e3fde409e3fde40000000000000000000000000000080bf3fe6583f3fe6583f2589ee40df219a40000000000000000000000000000080bf0f6a5f3f26a73d3f9ba50e412151b840000000000000000000000000000080bf161e723f0dba493f9ba50e415ce29240000000000000000000000000000080bf161e723ff2c03a3fe0a0a740278d2c40000000000000000000000000000080bf260d433fa282223f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -4923,7 +4971,7 @@ Mesh:
       m_BitSize: 0
     m_UVInfo: 0
   m_LocalAABB:
-    m_Center: {x: -0.0036387444, y: 3.2392426, z: 0}
+    m_Center: {x: -0.0036382675, y: 3.2392426, z: 0}
     m_Extent: {x: 8.919071, y: 6.7607574, z: 0}
   m_MeshUsageFlags: 0
   m_CookingOptions: 30
