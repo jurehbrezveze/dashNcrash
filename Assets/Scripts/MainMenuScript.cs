@@ -35,7 +35,7 @@ public class MainMenuScript : MonoBehaviour
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             Debug.Log("2");
             alwaysLoadedScript.sMode = true;
