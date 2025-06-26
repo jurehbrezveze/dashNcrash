@@ -30,7 +30,7 @@ public class MainMenuScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
