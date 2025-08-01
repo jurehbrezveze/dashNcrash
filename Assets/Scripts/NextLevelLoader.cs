@@ -3,18 +3,31 @@ using UnityEngine.SceneManagement;
 
 public class NextLevelLoader : MonoBehaviour
 {
-    public GameObject player;          // Assign the player object in the Inspector
-    public string nextSceneName = "";  // Name of the next scene to load (assign in the Inspector)
-    public float delay = 5f;           // Delay before loading the next level
+    public GameObject player;              // Assign the player object in the Inspector
+    public string nextSceneName = "";      // Name of the next scene to load (assign in the Inspector)
+    public float delay = 5f;               // Delay before loading the next level
+    public AudioClip touchSound;           // Assign sound to play when player touches trigger
 
     private bool playerTouched = false;
+    private AudioSource audioSource;
 
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject == player && !playerTouched)
         {
             playerTouched = true;
+
+            // Play touch sound
+            if (touchSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(touchSound);
+            }
+
             Debug.Log($"Player touched the Finish. Next level '{nextSceneName}' loading in {delay} seconds...");
             StartCoroutine(LoadNextLevelAfterDelay());
         }
