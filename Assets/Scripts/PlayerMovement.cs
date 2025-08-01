@@ -19,10 +19,14 @@ public class PlayerMovement : MonoBehaviour
     public TrailRenderer trail;
     private PauseMenu pauseMenu;
 
+    public AudioClip jumpSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         trail = GetComponent<TrailRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -42,13 +46,11 @@ public class PlayerMovement : MonoBehaviour
         {
             faceText.text = faces[3];
         }
-
-        if (ammo == 1)
+        else if (ammo == 1)
         {
             faceText.text = faces[4];
         }
-
-        if (ammo == 0)
+        else if (ammo == 0)
         {
             faceText.text = faces[5];
         }
@@ -70,16 +72,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && ammo > 0 && PauseMenu.isPaused == false)
         {
+            // Play jump sound
+            if (jumpSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(jumpSound);
+            }
+
             Vector2 direction = (mousePosition - rb.position);
-            Vector2 jumpVelocity = new Vector2(direction.x, direction.y).normalized;
+            Vector2 jumpVelocity = direction.normalized;
 
             if (ammo == 2)
             {
                 jumpVelocity *= -dashForce;
                 StartCoroutine(RenderTrail(0.3f));
             }
-
-            if (ammo == 1)
+            else if (ammo == 1)
             {
                 jumpVelocity *= -jumpForce;
                 StartCoroutine(RenderTrail(0.2f));
@@ -131,12 +138,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (other.gameObject.CompareTag("DashExtend"))
-        {   
+        {
             foreach (PlayerMovement player in FindObjectsOfType<PlayerMovement>())
             {
                 player.ammo = 2;
             }
         }
-
     }
 }
