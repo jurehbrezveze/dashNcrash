@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class GlitchTrigger2D : MonoBehaviour
 {
@@ -46,7 +47,20 @@ public class GlitchTrigger2D : MonoBehaviour
                     obj.SetActive(true);
             }
 
-            Destroy(gameObject); // Remove trigger after use
+            StartCoroutine(DisableRevealedObjectsAfterDelay(glitchDuration));
         }
+    }
+
+    private IEnumerator DisableRevealedObjectsAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        foreach (var obj in revealObjects)
+        {
+            if (obj != null)
+                obj.SetActive(false);
+        }
+
+        Destroy(gameObject); // Remove trigger after use
     }
 }
