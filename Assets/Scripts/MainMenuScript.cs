@@ -39,8 +39,18 @@ public class MainMenuScript : MonoBehaviour
         {
             Debug.Log("2");
             alwaysLoadedScript.sMode = true;
-            SceneManager.LoadScene("Level20");
+            SceneManager.LoadScene("Tower");
         }
+
+        //  Hotkey to reset unlocked levels
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            PlayerPrefs.SetInt("LastLevel", 1);
+            PlayerPrefs.Save();
+            maxLevel = 1; // Update current variable so it's in sync
+            Debug.Log("Unlocked levels reset to Level 1");
+        }
+
         if (isRotating)
         {
             float delta = rotationSpeed * Time.deltaTime;
