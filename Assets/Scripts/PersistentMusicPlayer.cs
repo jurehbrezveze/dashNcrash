@@ -60,16 +60,25 @@ public class PersistentMusicPlayer : MonoBehaviour
         if (musicCoroutine != null)
         {
             StopCoroutine(musicCoroutine);
+            musicCoroutine = null;
         }
 
         if (sceneMusicDict.TryGetValue(scene.name, out AudioClip specificClip))
         {
-            audioSource.clip = specificClip;
-            audioSource.Play();
+            // Only change if different
+            if (audioSource.clip != specificClip)
+            {
+                audioSource.clip = specificClip;
+                audioSource.Play();
+            }
         }
         else if (playlist.Length > 0)
         {
-            musicCoroutine = StartCoroutine(PlayMusicLoop());
+            // If we're already playing from playlist, don't restart
+            if (audioSource.clip == null || !System.Array.Exists(playlist, clip => clip == audioSource.clip))
+            {
+                musicCoroutine = StartCoroutine(PlayMusicLoop());
+            }
         }
     }
 
