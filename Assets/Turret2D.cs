@@ -1,82 +1,84 @@
 using UnityEngine;
 
-public class Turret2D : MonoBehaviour
+public class SimpleTurret2D : MonoBehaviour
 {
-    [Header("Targeting")]
-    public Transform player;               // Assign player in Inspector
-    public Transform turretTube;           // The rotating cannon part
-    public float detectionRange = 15f;     // Turret sight range
-    public float rotationSpeed = 5f;       // How fast the tube rotates
-    public float minAngle = -60f;          // Minimum rotation limit (relative to right)
-    public float maxAngle = 60f;           // Maximum rotation limit
+    [Header("Setup")]
+    public Transform player;         // Player target
+    public Transform pivot;          // Rotating barrel part
+    public Transform muzzle;         // Muzzle spawn point
+    public GameObject projectilePrefab;
+
+    [Header("Turret Settings")]
+    public float rotationSpeed = 5f;     // How fast the turret turns
+    public float rotationOffset = 0f;    // Adjust if sprite isn’t facing right
+    public float detectionRange = 15f;   // How far turret can detect
 
     [Header("Firing")]
-    public GameObject projectilePrefab;    // Projectile prefab
-    public Transform firePoint;            // Where bullets spawn
     public float projectileSpeed = 20f;
     public float fireDelay = 1.5f;
+    public float projectileLifetime = 5f; // How long before bullets despawn
 
-    [Header("Effects")]
-    public ParticleSystem muzzleFlash;
-    public AudioSource fireSound;
+    [Header("Sounds")]
+    public AudioSource detectionSound;   // Plays when player first seen
+    public AudioSource shootingSound;    // Plays when firing
 
     private float fireCooldown;
+    private bool playerInRange = false;
 
     void Update()
     {
         if (player == null) return;
 
-        // Check distance first
+        // Rotate pivot towards player
+        Vector2 direction = player.position - pivot.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + rotationOffset;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
+        pivot.rotation = Quaternion.Lerp(pivot.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+
+        // Check range
         float distance = Vector2.Distance(transform.position, player.position);
-        if (distance > detectionRange) return;
 
-        // Calculate angle towards player
-        Vector2 direction = (player.position - turretTube.position).normalized;
-        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Clamp turret rotation
-        targetAngle = Mathf.Clamp(targetAngle, minAngle, maxAngle);
-
-        // Smooth rotate tube
-        Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
-        turretTube.rotation = Quaternion.Lerp(turretTube.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-        // Check alignment
-        float angleDiff = Mathf.Abs(Mathf.DeltaAngle(turretTube.eulerAngles.z, targetAngle));
-
-        // Raycast forward from firePoint
-        RaycastHit2D hit = Physics2D.Raycast(firePoint.position, firePoint.right, detectionRange);
-
-        // Fire only if aligned AND ray hits player
-        if (angleDiff < 3f && hit.collider != null && hit.collider.transform == player)
+        if (distance <= detectionRange)
         {
-            if (fireCooldown <= 0f)
+            // Play detection sound once when player enters range
+            if (!playerInRange)
             {
-                Fire();
-                fireCooldown = fireDelay;
+                if (detectionSound != null) detectionSound.Play();
+                playerInRange = true;
             }
-        }
 
-        // Countdown cooldown
+            HandleFiring();
+        }
+        else
+        {
+            playerInRange = false;
+        }
+    }
+
+    void HandleFiring()
+    {
+        if (fireCooldown <= 0f)
+        {
+            Fire();
+            fireCooldown = fireDelay;
+        }
         fireCooldown -= Time.deltaTime;
     }
 
     void Fire()
     {
-        if (projectilePrefab != null && firePoint != null)
+        if (projectilePrefab != null && muzzle != null)
         {
-            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            GameObject projectile = Instantiate(projectilePrefab, muzzle.position, muzzle.rotation);
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.velocity = firePoint.right * projectileSpeed;
+                rb.velocity = muzzle.right * projectileSpeed;
             }
+            // Destroy bullet after lifetime
+            Destroy(projectile, projectileLifetime);
         }
 
-        if (muzzleFlash != null)
-            muzzleFlash.Play();
-
-        if (fireSound != null)
-            fireSound.Play();
+        if (shootingSound != null) shootingSound.Play();
     }
 }
