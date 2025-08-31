@@ -10,14 +10,13 @@ public class PersistentMusicPlayer : MonoBehaviour
     public float volume = 0.5f;
 
     [Header("Scene-Specific Tracks")]
-    public SceneMusicMapping[] sceneTracks; // Scene  AudioClip mapping
+    public SceneMusicMapping[] sceneTracks; // Scene -> AudioClip mapping
 
     private AudioSource audioSource;
     private static PersistentMusicPlayer instance;
     private int currentTrackIndex = 0;
     private Dictionary<string, AudioClip> sceneMusicDict;
-    private Coroutine musicCoroutine;
-    private bool usingSceneTrack = false;
+    private Coroutine playlistCoroutine;
 
     [System.Serializable]
     public class SceneMusicMapping
@@ -53,59 +52,59 @@ public class PersistentMusicPlayer : MonoBehaviour
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        // Start music loop immediately
+        // Start the playlist coroutine immediately
         if (playlist.Length > 0)
         {
-            musicCoroutine = StartCoroutine(PlayMusicLoop());
+            playlistCoroutine = StartCoroutine(PlaylistLoop());
         }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // If this scene has a specific track  play that
+        // Scene-specific track
         if (sceneMusicDict.TryGetValue(scene.name, out AudioClip specificClip))
         {
-            usingSceneTrack = true;
-
-            if (musicCoroutine != null)
+            // Stop playlist coroutine if running
+            if (playlistCoroutine != null)
             {
-                StopCoroutine(musicCoroutine);
-                musicCoroutine = null;
+                StopCoroutine(playlistCoroutine);
+                playlistCoroutine = null;
             }
 
-            if (audioSource.clip != specificClip)
-            {
-                audioSource.clip = specificClip;
-                audioSource.loop = true; // keep looping scene track
-                audioSource.Play();
-            }
+            audioSource.Stop();
+            audioSource.clip = specificClip;
+            audioSource.loop = true;
+            audioSource.Play();
         }
         else
         {
-            // Back to general playlist mode
-            if (usingSceneTrack && playlist.Length > 0)
+            // Back to general playlist
+            if ((playlistCoroutine == null) && playlist.Length > 0)
             {
-                usingSceneTrack = false;
-                musicCoroutine = StartCoroutine(PlayMusicLoop());
+                audioSource.Stop();
+                audioSource.loop = false;
+                audioSource.clip = playlist[currentTrackIndex];
+                audioSource.Play();
+                playlistCoroutine = StartCoroutine(PlaylistLoop());
             }
         }
     }
 
-    IEnumerator PlayMusicLoop()
+    IEnumerator PlaylistLoop()
     {
         while (true)
         {
-            // If nothing playing, or clip finished, move to next
             if (!audioSource.isPlaying)
             {
+                // Play next song in order
                 audioSource.clip = playlist[currentTrackIndex];
-                audioSource.loop = false;
                 audioSource.Play();
 
+                // Move to next track for the following iteration
                 currentTrackIndex = (currentTrackIndex + 1) % playlist.Length;
             }
 
-            yield return null; // check every frame
+            yield return null;
         }
     }
 }
