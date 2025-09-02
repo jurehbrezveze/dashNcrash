@@ -71,23 +71,20 @@ public class PersistentMusicPlayer : MonoBehaviour
     {
         if (sceneMusicDict.TryGetValue(scene.name, out Track specificTrack))
         {
+            // Kill playlist if running
             if (playlistCoroutine != null)
             {
                 StopCoroutine(playlistCoroutine);
                 playlistCoroutine = null;
             }
 
-            PlayTrack(specificTrack, true);
+            PlayTrack(specificTrack, true); // loop this scene track
         }
         else
         {
-            if (playlist.Length > 0)
+            // Only start playlist if not already running
+            if (playlist.Length > 0 && playlistCoroutine == null)
             {
-                if (playlistCoroutine != null)
-                {
-                    StopCoroutine(playlistCoroutine);
-                }
-
                 audioSource.Stop();
                 audioSource.loop = false;
 
@@ -95,7 +92,8 @@ public class PersistentMusicPlayer : MonoBehaviour
                 playlistCoroutine = StartCoroutine(PlaylistLoop());
             }
         }
-    }
+}
+
 
     IEnumerator PlaylistLoop()
     {
