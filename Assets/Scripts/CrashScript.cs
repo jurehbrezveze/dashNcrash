@@ -6,7 +6,6 @@ public class CrashScript : MonoBehaviour
     public float initialForce = 10f;     // Initial downward impulse when right-clicking
     public float maxFallSpeed = 20f;     // Cap on how fast the player can fall
 
-    private bool isFalling = false;
     private bool rotationLocked = false;
 
     void Start()
@@ -27,10 +26,8 @@ public class CrashScript : MonoBehaviour
         if (rb == null) return;
 
         // Trigger fall
-        if (Input.GetMouseButtonDown(1) && !isFalling)
+        if (Input.GetMouseButtonDown(1))
         {
-            isFalling = true;
-
             // Reset & lock rotation
             rb.rotation = 0f;
             rb.freezeRotation = true;
@@ -40,21 +37,10 @@ public class CrashScript : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0); // Cancel upward movement
             rb.AddForce(Vector2.down * initialForce, ForceMode2D.Impulse);
         }
-
-        // Cap the fall speed
-        if (isFalling && rb.velocity.y < -maxFallSpeed)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isFalling)
-        {
-            isFalling = false;
-        }
-
         if (rotationLocked)
         {
             rb.freezeRotation = false;

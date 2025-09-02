@@ -44,11 +44,15 @@ public class PersistentMusicPlayer : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
+        Application.runInBackground = true;  // keep running when tabbed out
+        AudioListener.pause = false;          // prevent Unity from pausing audio
+
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.loop = false;
         audioSource.playOnAwake = false;
         audioSource.volume = volume;
 
+        // Build scene dictionary
         sceneMusicDict = new Dictionary<string, Track>();
         foreach (var mapping in sceneTracks)
         {
@@ -56,6 +60,11 @@ public class PersistentMusicPlayer : MonoBehaviour
             {
                 sceneMusicDict[mapping.sceneName] = mapping.track;
             }
+        }
+
+        if (playlist.Length > 0 && playlist[0].clip != null)
+        {
+            playlist[0].clip.LoadAudioData();
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -71,18 +80,17 @@ public class PersistentMusicPlayer : MonoBehaviour
     {
         if (sceneMusicDict.TryGetValue(scene.name, out Track specificTrack))
         {
-            // Kill playlist if running
+            // Stop playlist if running
             if (playlistCoroutine != null)
             {
                 StopCoroutine(playlistCoroutine);
                 playlistCoroutine = null;
             }
 
-            PlayTrack(specificTrack, true); // loop this scene track
+            PlayTrack(specificTrack, true);
         }
         else
         {
-            // Only start playlist if not already running
             if (playlist.Length > 0 && playlistCoroutine == null)
             {
                 audioSource.Stop();
@@ -92,14 +100,13 @@ public class PersistentMusicPlayer : MonoBehaviour
                 playlistCoroutine = StartCoroutine(PlaylistLoop());
             }
         }
-}
-
+    }
 
     IEnumerator PlaylistLoop()
     {
         while (true)
         {
-            if (!audioSource.isPlaying)
+            if (!audioSource.isPlaying && Application.isFocused) // don't advance when tabbed out
             {
                 if (shufflePool.Count == 0)
                     ResetShufflePool();
@@ -107,6 +114,9 @@ public class PersistentMusicPlayer : MonoBehaviour
                 int randomIndex = Random.Range(0, shufflePool.Count);
                 Track nextTrack = shufflePool[randomIndex];
                 shufflePool.RemoveAt(randomIndex);
+
+                // Preload next song just in time
+                PrepareNextTrack(nextTrack);
 
                 PlayTrack(nextTrack, false);
             }
@@ -117,15 +127,27 @@ public class PersistentMusicPlayer : MonoBehaviour
 
     void PlayTrack(Track track, bool loop)
     {
+        if (track.clip == null) return;
+
         audioSource.Stop();
         audioSource.clip = track.clip;
         audioSource.loop = loop;
-        audioSource.Play();
+
+        // Schedule playback 0.5s ahead for smooth start
+        audioSource.PlayScheduled(AudioSettings.dspTime + 0.5);
 
         if (beatCoroutine != null)
             StopCoroutine(beatCoroutine);
 
         beatCoroutine = StartCoroutine(BeatPulse(track.bpm));
+    }
+
+    void PrepareNextTrack(Track track)
+    {
+        if (track.clip != null && track.clip.loadState == AudioDataLoadState.Unloaded)
+        {
+            track.clip.LoadAudioData(); // load into memory just before playing
+        }
     }
 
     IEnumerator BeatPulse(float bpm)
@@ -161,8 +183,6 @@ public class PersistentMusicPlayer : MonoBehaviour
 
         cam.position = originalPos;
     }
-
-
 
     void ResetShufflePool()
     {
