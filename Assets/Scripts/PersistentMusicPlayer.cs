@@ -74,6 +74,12 @@ public class PersistentMusicPlayer : MonoBehaviour
             ResetShufflePool();
             playlistCoroutine = StartCoroutine(PlaylistLoop());
         }
+
+        foreach (var track in playlist)
+        {
+            if (track.clip != null)
+                Debug.Log(track.clip.name + " load state: " + track.clip.loadState);
+        }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -86,6 +92,9 @@ public class PersistentMusicPlayer : MonoBehaviour
                 StopCoroutine(playlistCoroutine);
                 playlistCoroutine = null;
             }
+
+            if (audioSource.clip != null)
+                audioSource.clip.UnloadAudioData();
 
             PlayTrack(specificTrack, true);
         }
@@ -118,6 +127,9 @@ public class PersistentMusicPlayer : MonoBehaviour
                 // Preload next song just in time
                 PrepareNextTrack(nextTrack);
 
+                if (audioSource.clip != null)
+                    audioSource.clip.UnloadAudioData();
+
                 PlayTrack(nextTrack, false);
             }
 
@@ -129,9 +141,16 @@ public class PersistentMusicPlayer : MonoBehaviour
     {
         if (track.clip == null) return;
 
+        // Free the old clip before switching
+        if (audioSource.clip != null && audioSource.clip != track.clip)
+            audioSource.clip.UnloadAudioData();
+
         audioSource.Stop();
         audioSource.clip = track.clip;
         audioSource.loop = loop;
+
+        // Load new one just in time
+        track.clip.LoadAudioData();
 
         // Schedule playback 0.5s ahead for smooth start
         audioSource.PlayScheduled(AudioSettings.dspTime + 0.5);
@@ -141,6 +160,7 @@ public class PersistentMusicPlayer : MonoBehaviour
 
         beatCoroutine = StartCoroutine(BeatPulse(track.bpm));
     }
+
 
     void PrepareNextTrack(Track track)
     {
