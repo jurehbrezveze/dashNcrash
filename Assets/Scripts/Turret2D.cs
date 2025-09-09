@@ -17,8 +17,8 @@ public class Turret2D : MonoBehaviour
     [Header("Rotation")]
     [Tooltip("Offset in degrees to align sprite forward direction.")]
     public float angleOffset = 0f;
-    public float minAngle = -90f;
-    public float maxAngle = 90f;
+    public Transform minAngleTransform; // Empty to mark left bound
+    public Transform maxAngleTransform; // Empty to mark right bound
 
     [Header("Audio & VFX")]
     public AudioSource audioSource;
@@ -41,7 +41,7 @@ public class Turret2D : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return;
+        if (player == null || pivot == null) return;
 
         Vector2 direction = player.position - pivot.position;
         float distance = direction.magnitude;
@@ -54,15 +54,42 @@ public class Turret2D : MonoBehaviour
             // Apply offset
             targetAngle += angleOffset;
 
-            // Clamp to limits
-            targetAngle = Mathf.Clamp(targetAngle, minAngle, maxAngle);
+            // Clamp to limits if empties are set
+            if (minAngleTransform && maxAngleTransform)
+            {
+                float minAngle = GetRelativeAngle(minAngleTransform.position);
+                float maxAngle = GetRelativeAngle(maxAngleTransform.position);
 
-            // Smooth rotate toward target
+                targetAngle = ClampAngleInSector(targetAngle, minAngle, maxAngle);
+            }
+
+            // Smooth rotate toward target (stay inside allowed sector)
             float currentAngle = pivot.eulerAngles.z;
-            if (currentAngle > 180f) currentAngle -= 360f; // normalize -180..180
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationSpeed * Time.deltaTime);
+            if (currentAngle > 180f) currentAngle -= 360f; // normalize to -180..180
 
-            pivot.rotation = Quaternion.Euler(0, 0, newAngle);
+            // Clamp target into sector
+            float clampedTarget = targetAngle;
+            if (minAngleTransform && maxAngleTransform)
+            {
+                float minAngle = GetRelativeAngle(minAngleTransform.position);
+                float maxAngle = GetRelativeAngle(maxAngleTransform.position);
+                clampedTarget = ClampAngleInSector(targetAngle, minAngle, maxAngle);
+            }
+
+            // Rotate toward clampedTarget without cutting through forbidden zone
+            float step = rotationSpeed * Time.deltaTime;
+            float delta = Mathf.DeltaAngle(currentAngle, clampedTarget);
+
+            if (Mathf.Abs(delta) <= step)
+            {
+                currentAngle = clampedTarget; // snap if close enough
+            }
+            else
+            {
+                currentAngle += Mathf.Sign(delta) * step;
+            }
+
+            pivot.rotation = Quaternion.Euler(0, 0, currentAngle);
 
             // Detection sound (once)
             if (!playerDetected)
@@ -100,5 +127,56 @@ public class Turret2D : MonoBehaviour
 
         if (audioSource && shootSound) audioSource.PlayOneShot(shootSound);
         if (muzzleFlash) muzzleFlash.Play();
+    }
+
+    float GetRelativeAngle(Vector3 worldPos)
+    {
+        Vector2 dir = worldPos - pivot.position;
+        return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + angleOffset;
+    }
+
+    float ClampAngleInSector(float angle, float min, float max)
+    {
+        // Normalize to [0..360)
+        angle = (angle + 360f) % 360f;
+        min = (min + 360f) % 360f;
+        max = (max + 360f) % 360f;
+
+        // If sector crosses 0° (e.g. min=300, max=60), adjust logic
+        bool crossesZero = min > max;
+
+        if (!crossesZero)
+        {
+            // Normal case
+            return Mathf.Clamp(angle, min, max);
+        }
+        else
+        {
+            // Wrap-around case: valid sector is [min..360) U [0..max]
+            if (angle >= min || angle <= max)
+            {
+                return angle; // inside sector, no clamp needed
+            }
+            else
+            {
+                // Outside sector → clamp to nearest bound
+                float distToMin = Mathf.DeltaAngle(angle, min);
+                float distToMax = Mathf.DeltaAngle(angle, max);
+                return Mathf.Abs(distToMin) < Mathf.Abs(distToMax) ? min : max;
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (pivot == null || minAngleTransform == null || maxAngleTransform == null) return;
+
+        Gizmos.color = Color.yellow;
+
+        Vector3 minDir = (minAngleTransform.position - pivot.position).normalized * detectionRange;
+        Vector3 maxDir = (maxAngleTransform.position - pivot.position).normalized * detectionRange;
+
+        Gizmos.DrawLine(pivot.position, pivot.position + minDir);
+        Gizmos.DrawLine(pivot.position, pivot.position + maxDir);
     }
 }
