@@ -4910,6 +4910,7 @@ GameObject:
   - component: {fileID: 4150601949910587745}
   - component: {fileID: 8348320134000302042}
   - component: {fileID: 1310833476475077884}
+  - component: {fileID: 407113228311672660}
   m_Layer: 0
   m_Name: YeetOrb
   m_TagString: Untagged
@@ -5064,6 +5065,22 @@ MonoBehaviour:
   - {fileID: 3155053159928038929}
   - {fileID: 6688447291443809871}
   triggeringTag: Player
+--- !u!114 &407113228311672660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706985120709418796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c810a753b304d46a5ee619302a4f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleAmount: 0.01
+  scaleSpeed: 2
+  rotationAmount: 5
+  rotationSpeed: 3
 --- !u!1 &3608627652516884792
 GameObject:
   m_ObjectHideFlags: 0
